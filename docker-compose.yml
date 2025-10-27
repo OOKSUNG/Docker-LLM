@@ -1,8 +1,11 @@
+version: "3.9"
+
 services:
   frontend:
     build: ./frontend
+    container_name: frontend-1
     ports:
-      - "3000:80"
+      - "3000:80"          # 외부 3000 → 내부 80
     depends_on:
       - llm
     networks:
@@ -10,15 +13,19 @@ services:
 
   llm:
     image: ghcr.io/huggingface/text-generation-inference:1.4
-    command: --model-id distilgpt2
+    container_name: llm-1
+    command: --model-id gpt2-large # 성능 높은 모델
     ports:
-      - "5000:80"
+      - "5000:80"          # 외부 5000 → 내부 80
+    environment:
+      TGI_ALLOW_ORIGIN: "*"  # CORS 허용
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]   # GPU 사용
     networks:
       - llm-net
-    environment:
-      TGI_ALLOW_ORIGIN: "*"
-
-
 
 networks:
   llm-net:
