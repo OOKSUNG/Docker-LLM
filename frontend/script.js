@@ -9,23 +9,19 @@ sendBtn.addEventListener("click", async () => {
     outputEl.value = "Loading...";
 
     try {
-        const response = await fetch("http://localhost:5000/generate", {
+        // Docker 호스트에서 접근할 수 있는 포트 사용
+        const response = await fetch("http://localhost:4000/ask", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ inputs: prompt })
+            body: JSON.stringify({ prompt })
         });
 
         const data = await response.json();
-        console.log(data);
-        // Hugging Face TGI는 data[0].generated_text로 반환됨
-        if (data.generated_text) {
-            outputEl.value = data.generated_text;
-        } else {
-            outputEl.value = "No generated text in response";
-        }
+        outputEl.value = data.answer || "No answer received";
     } catch (err) {
         console.error(err);
         outputEl.value = "Error: " + err.message;
     }
 });
+
 
