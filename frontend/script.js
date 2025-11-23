@@ -9,8 +9,7 @@ sendBtn.addEventListener("click", async () => {
     outputEl.value = "Loading...";
 
     try {
-        // Docker 호스트에서 접근할 수 있는 포트 사용
-        const response = await fetch("http://localhost:4000/ask", {
+        const response = await fetch("/api/ask", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt })

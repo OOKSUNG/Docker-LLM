@@ -21,7 +21,7 @@ const pool = new Pool({
 // LLM 요청
 app.post("/ask", async (req, res) => {
     const { prompt } = req.body;
-    console.log("Received /ask request:", req.body); // 프론트에서 오는 값 확인
+    console.log("Received /ask request:", req.body); 
     if (!prompt) return res.status(400).json({ error: "No prompt provided" });
 
     try {
@@ -31,13 +31,11 @@ app.post("/ask", async (req, res) => {
             { inputs: prompt },
             { timeout: 60000 }
         );
-        // console.log("LLM response:", llmRes.data);
 
         const answer = llmRes.data.generated_text;
         console.log("LLM answer:", answer);
 
         // DB에 저장
-        
         const dbRes = await pool.query(
             "INSERT INTO prompts(prompt_text, response_text) VALUES($1, $2)",
             [prompt, answer]

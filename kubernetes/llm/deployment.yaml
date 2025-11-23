@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llm
+  template:
+    metadata:
+      labels:
+        app: llm
+    spec:
+      containers:
+        - name: llm
+          image: ghcr.io/huggingface/text-generation-inference:1.4
+          ports:
+            - containerPort: 80
+          args: ["--model-id", "gpt2"]
