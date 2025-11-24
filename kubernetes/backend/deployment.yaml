@@ -14,18 +14,19 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ook0301/backend:latest
+          image: ook0301/llm-backend:latest
           ports:
-            - containerPort: 8000
+            - containerPort: 4000
           env:
-            - name: DB_HOST
-              value: postgres
-            - name: DB_USER
-              value: user
-            - name: DB_PASSWORD
-              value: pass
-            - name: DB_NAME
-              value: scores
+              - name: POSTGRES_USER
+                value: "postgres"
+              - name: POSTGRES_PASSWORD
+                value: "postgres"
+              - name: POSTGRES_DB
+                value: "llm_db"
+              - name: POSTGRES_HOST
+                value: "db"
+
 ---
 apiVersion: v1
 kind: Service
@@ -35,7 +36,7 @@ spec:
   selector:
     app: backend
   ports:
-    - port: 8000
-      targetPort: 8000
+    - port: 4000
+      targetPort: 4000
 
 

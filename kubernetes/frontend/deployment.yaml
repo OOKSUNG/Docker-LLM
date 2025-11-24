@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ook0301/frontend:latest
+          image: ook0301/docker_llm-frontend:latest
           ports:
             - containerPort: 80
 ---
