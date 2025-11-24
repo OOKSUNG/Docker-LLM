@@ -6,4 +6,9 @@ spec:
   containers:
     - name: test-node
       image: node:20-alpine
-      command: ["sh", "-c", "while true; do sleep 3600; done"]
+      command: ["sh", "-c"]
+      args: 
+        - |
+          apk update && \
+          apk add curl && \
+          while true; do sleep 3600; done
