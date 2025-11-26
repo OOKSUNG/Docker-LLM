@@ -9,7 +9,7 @@ sendBtn.addEventListener("click", async () => {
     outputEl.value = "Loading...";
 
     try {
-        const response = await fetch("http://backend:4000/ask", {
+        const response = await fetch("http://llm.local/ask", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt })

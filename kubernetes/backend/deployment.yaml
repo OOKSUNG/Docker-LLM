@@ -33,6 +33,7 @@ kind: Service
 metadata:
   name: backend
 spec:
+  type: NodePort # <--- 변경
   selector:
     app: backend
   ports:
